@@ -217,11 +217,11 @@ const BalanceGeneral = ({ data }) => {
                 <footer className="balance-footer" style={{ borderTop: '2px dashed rgba(0,0,0,0.1)', marginTop: '3rem', paddingTop: '2rem' }}>
                     <div className="signature-box">
                         <div className="signature-line" style={{ borderColor: '#000', fontWeight: 'bold' }}>Mario Efraín Moguel Hernández</div>
-                        <div style={{ fontSize: '0.7rem' }}>Elaboró: Director</div>
+                        <div style={{ fontSize: '0.9rem', marginTop: '5px' }}>Elaboró: Director</div>
                     </div>
                     <div className="signature-box">
                         <div className="signature-line" style={{ borderColor: '#000', fontWeight: 'bold' }}>GONZALEZ ZUÑIGA NURIA</div>
-                        <div style={{ fontSize: '0.7rem' }}>Autorizó</div>
+                        <div style={{ fontSize: '0.9rem', marginTop: '5px' }}>Autorizó</div>
                     </div>
                 </footer>
             </div>
