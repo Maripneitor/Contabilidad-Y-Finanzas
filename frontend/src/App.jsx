@@ -16,23 +16,23 @@ import LibroDiario from './components/LibroDiario';
 import SelectorHistorico from './components/SelectorHistorico';
 
 const ACCOUNTS = [
-    { code: 'AC-CA', name: 'Monedas y Billetes (Caja)', icon: '' },
-    { code: 'AC-BA', name: 'Dinero que tenemos en el Banco', icon: '' },
-    { code: 'AC-IN', name: 'Productos para vender', icon: '' },
-    { code: 'AC-CL', name: 'Dinero que nos deben los clientes', icon: '' },
+    { code: 'AC-CA', name: 'Caja y Efectivo', icon: '' },
+    { code: 'AC-BA', name: 'Bancos', icon: '' },
+    { code: 'AC-IN', name: 'Inventarios', icon: '' },
+    { code: 'AC-CL', name: 'Clientes', icon: '' },
     { code: 'AC-IV', name: 'IVA Acreditable', icon: '' },
     { code: 'AC-IP', name: 'IVA por Acreditar', icon: '' },
-    { code: 'ANC-ME', name: 'Muebles de Madera', icon: '' },
-    { code: 'ANC-EC', name: 'Computadoras de Oficina', icon: '' },
+    { code: 'ANC-ME', name: 'Mobiliario y Equipo de Oficina', icon: '' },
+    { code: 'ANC-EC', name: 'Equipo de Cómputo', icon: '' },
     { code: 'AD-GI', name: 'Gastos de Instalación', icon: '' },
     { code: 'AD-PU', name: 'Papelería y Útiles', icon: '' },
-    { code: 'AD-RA', name: 'Rentas Pagadas', icon: '' },
-    { code: 'PC-PR', name: 'Dinero que le debemos a la gente', icon: '' },
-    { code: 'PC-IT', name: 'IVA de lo que cobramos', icon: '' },
-    { code: 'PC-IX', name: 'IVA que cobraremos pronto', icon: '' },
-    { code: 'PC-AC', name: 'Apartado de Clientes', icon: '' },
-    { code: 'C-CS', name: 'Lo que pusieron los dueños', icon: '' },
-    { code: 'C-UN', name: 'Nuestras ganancias por vender', icon: '' },
+    { code: 'AD-RA', name: 'Rentas Pagadas por Anticipado', icon: '' },
+    { code: 'PC-PR', name: 'Proveedores', icon: '' },
+    { code: 'PC-IT', name: 'IVA Trasladado', icon: '' },
+    { code: 'PC-IX', name: 'IVA por Trasladar', icon: '' },
+    { code: 'PC-AC', name: 'Anticipo de Clientes', icon: '' },
+    { code: 'C-CS', name: 'Capital Social', icon: '' },
+    { code: 'C-UN', name: 'Utilidad del Ejercicio', icon: '' },
 ];
 
 function App() {

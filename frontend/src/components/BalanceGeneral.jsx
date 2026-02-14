@@ -158,23 +158,25 @@ const BalanceGeneral = ({ data }) => {
 
                         <h4 className="subsection-title">Circulante</h4>
                         <div className="subsection-content">
-                            <Row icon="" label="Billetes y Monedas (Caja)" val={body['AC-CA']} color="#22c55e" />
-                            <Row icon="" label="Dinero que tenemos en el Banco" val={body['AC-BA']} color="#22c55e" />
-                            <Row icon="" label="Productos para vender" val={body['AC-IN']} color="#22c55e" />
-                            <Row icon="" label="Dinero que nos deben los clientes" val={body['AC-CL']} color="#22c55e" />
+                            <Row icon="" label="Caja y Efectivo" val={body['AC-CA']} color="#22c55e" />
+                            <Row icon="" label="Bancos" val={body['AC-BA']} color="#22c55e" />
+                            <Row icon="" label="Inventarios" val={body['AC-IN']} color="#22c55e" />
+                            <Row icon="" label="Clientes" val={body['AC-CL']} color="#22c55e" />
+                            <Row icon="" label="IVA Acreditable" val={body['AC-IV']} color="#22c55e" />
+                            <Row icon="" label="IVA por Acreditar" val={body['AC-IP']} color="#22c55e" />
                         </div>
 
                         <h4 className="subsection-title">No Circulante</h4>
                         <div className="subsection-content">
-                            <Row icon="" label="Muebles y Escritorios" val={body['ANC-ME']} color="#10b981" />
-                            <Row icon="" label="Computadoras" val={body['ANC-EC']} color="#10b981" />
+                            <Row icon="" label="Mobiliario y Equipo de Oficina" val={body['ANC-ME']} color="#10b981" />
+                            <Row icon="" label="Equipo de Cómputo" val={body['ANC-EC']} color="#10b981" />
                         </div>
 
                         <h4 className="subsection-title">Diferido</h4>
                         <div className="subsection-content">
-                            <Row icon="" label="Areglos del Local" val={body['AD-GI']} color="#059669" />
-                            <Row icon="" label="Papel y Lápices" val={body['AD-PU']} color="#059669" />
-                            <Row icon="" label="Renta Pagada" val={body['AD-RA']} color="#059669" />
+                            <Row icon="" label="Gastos de Instalación" val={body['AD-GI']} color="#059669" />
+                            <Row icon="" label="Papelería y Útiles" val={body['AD-PU']} color="#059669" />
+                            <Row icon="" label="Rentas Pagadas por Anticipado" val={body['AD-RA']} color="#059669" />
                         </div>
 
                         <div className="total-row" style={{ marginTop: '1.5rem', background: 'rgba(34, 197, 94, 0.1)', color: '#047857', padding: '15px' }}>
@@ -191,18 +193,18 @@ const BalanceGeneral = ({ data }) => {
 
                         <h4 className="subsection-title">Corto Plazo</h4>
                         <div className="subsection-content">
-                            <Row icon="" label="Dinero que le debemos a la gente" val={Math.abs(body['PC-PR'] || 0)} color="#ef4444" />
-                            <Row icon="" label="IVA de lo que cobramos" val={Math.abs(body['PC-IT'] || 0)} color="#ef4444" />
-                            <Row icon="" label="IVA que cobraremos pronto" val={Math.abs(body['PC-IX'] || 0)} color="#ef4444" />
-                            <Row icon="" label="Apartado de Clientes" val={Math.abs(body['PC-AC'] || 0)} color="#ef4444" />
+                            <Row icon="" label="Proveedores" val={Math.abs(body['PC-PR'] || 0)} color="#ef4444" />
+                            <Row icon="" label="IVA Trasladado" val={Math.abs(body['PC-IT'] || 0)} color="#ef4444" />
+                            <Row icon="" label="IVA por Trasladar" val={Math.abs(body['PC-IX'] || 0)} color="#ef4444" />
+                            <Row icon="" label="Anticipo de Clientes" val={Math.abs(body['PC-AC'] || 0)} color="#ef4444" />
                         </div>
 
                         <h3 className="section-title" style={{ background: '#3b82f6', color: 'white', borderRadius: '8px', padding: '10px 15px', marginTop: '2rem' }}>
                             CAPITAL CONTABLE (Socios)
                         </h3>
                         <div className="subsection-content">
-                            <Row icon="" label="Lo que pusieron los dueños" val={Math.abs(body['C-CS'] || 0)} color="#3b82f6" />
-                            <Row icon="" label="Nuestras ganancias por vender" val={Math.abs(body['C-UN'] || 0)} color="#3b82f6" />
+                            <Row icon="" label="Capital Social" val={Math.abs(body['C-CS'] || 0)} color="#3b82f6" />
+                            <Row icon="" label="Utilidad del Ejercicio" val={Math.abs(body['C-UN'] || 0)} color="#3b82f6" />
                         </div>
 
                         <div className="total-row" style={{ marginTop: '1.5rem', background: 'rgba(59, 130, 246, 0.1)', color: '#1e40af', padding: '15px' }}>
@@ -214,12 +216,12 @@ const BalanceGeneral = ({ data }) => {
 
                 <footer className="balance-footer" style={{ borderTop: '2px dashed rgba(0,0,0,0.1)', marginTop: '3rem', paddingTop: '2rem' }}>
                     <div className="signature-box">
-                        <div className="signature-line" style={{ borderColor: '#000', fontWeight: 'bold' }}>MARIO E. MOGUEL</div>
-                        <div style={{ fontSize: '0.7rem' }}>DIRECTOR GENERAL (REPRESENTANTE)</div>
+                        <div className="signature-line" style={{ borderColor: '#000', fontWeight: 'bold' }}>Mario Efraín Moguel Hernández</div>
+                        <div style={{ fontSize: '0.7rem' }}>Elaboró: Director</div>
                     </div>
                     <div className="signature-box">
-                        <div className="signature-line" style={{ borderColor: '#000', fontWeight: 'bold' }}>NURIA GONZALEZ Z.</div>
-                        <div style={{ fontSize: '0.7rem' }}>SECRETARIA DE FINANZAS</div>
+                        <div className="signature-line" style={{ borderColor: '#000', fontWeight: 'bold' }}>GONZALEZ ZUÑIGA NURIA</div>
+                        <div style={{ fontSize: '0.7rem' }}>Autorizó</div>
                     </div>
                 </footer>
             </div>
