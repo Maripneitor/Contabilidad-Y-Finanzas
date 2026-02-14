@@ -1,0 +1,354 @@
+[
+  {
+    "id": 1,
+    "date": "2026-01-23",
+    "description": "Asiento de Apertura - Inicio de Operaciones",
+    "entries": [
+      {
+        "account": "AC-CA",
+        "debe": 5000,
+        "haber": 0
+      },
+      {
+        "account": "AC-BA",
+        "debe": 45000,
+        "haber": 0
+      },
+      {
+        "account": "AC-IN",
+        "debe": 80000,
+        "haber": 0
+      },
+      {
+        "account": "ANC-ME",
+        "debe": 10000,
+        "haber": 0
+      },
+      {
+        "account": "ANC-EC",
+        "debe": 25000,
+        "haber": 0
+      },
+      {
+        "account": "AD-GI",
+        "debe": 5000,
+        "haber": 0
+      },
+      {
+        "account": "AD-PU",
+        "debe": 2000,
+        "haber": 0
+      },
+      {
+        "account": "AD-RA",
+        "debe": 10000,
+        "haber": 0
+      },
+      {
+        "account": "C-CS",
+        "debe": 0,
+        "haber": 182000
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "date": "2026-01-28",
+    "description": "Factura 1: Compra de Mercancía en Efectivo",
+    "entries": [
+      {
+        "account": "AC-IN",
+        "debe": 20000,
+        "haber": 0
+      },
+      {
+        "account": "AC-IV",
+        "debe": 3000,
+        "haber": 0
+      },
+      {
+        "account": "AC-BA",
+        "debe": 0,
+        "haber": 23000
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "date": "2026-01-31",
+    "description": "Factura 2: Compra Mixta (20% Enganche)",
+    "entries": [
+      {
+        "account": "AC-IN",
+        "debe": 5000,
+        "haber": 0
+      },
+      {
+        "account": "AC-IV",
+        "debe": 160,
+        "haber": 0
+      },
+      {
+        "account": "AC-IP",
+        "debe": 640,
+        "haber": 0
+      },
+      {
+        "account": "AC-BA",
+        "debe": 0,
+        "haber": 1160
+      },
+      {
+        "account": "PC-PR",
+        "debe": 0,
+        "haber": 4640
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "date": "2026-02-04",
+    "description": "Factura 3: Compra 100% a Crédito",
+    "entries": [
+      {
+        "account": "AC-IN",
+        "debe": 10000,
+        "haber": 0
+      },
+      {
+        "account": "AC-IP",
+        "debe": 1600,
+        "haber": 0
+      },
+      {
+        "account": "PC-PR",
+        "debe": 0,
+        "haber": 11600
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "date": "2026-02-06",
+    "description": "Venta de Mercancía y Costo de Venta",
+    "entries": [
+      {
+        "account": "AC-BA",
+        "debe": 2320,
+        "haber": 0
+      },
+      {
+        "account": "AC-CL",
+        "debe": 9280,
+        "haber": 0
+      },
+      {
+        "account": "PC-IT",
+        "debe": 0,
+        "haber": 320
+      },
+      {
+        "account": "PC-IX",
+        "debe": 0,
+        "haber": 1280
+      },
+      {
+        "account": "C-UN",
+        "debe": 0,
+        "haber": 4000
+      },
+      {
+        "account": "AC-IN",
+        "debe": 0,
+        "haber": 6000
+      }
+    ]
+  },
+  {
+    "id": 1771060382666,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382679,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382690,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382702,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382712,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382721,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382730,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382740,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382749,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382758,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382768,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382778,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382787,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382796,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382805,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382814,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  },
+  {
+    "id": 1771060382823,
+    "date": "2026-02-14",
+    "description": "Carga desde Excel",
+    "entries": [
+      {
+        "debe": 0,
+        "haber": 0
+      }
+    ]
+  }
+]

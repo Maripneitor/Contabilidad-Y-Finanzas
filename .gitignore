@@ -1,0 +1,8 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+.env
+.docker-data
+backend/data/transacciones.json.backup
