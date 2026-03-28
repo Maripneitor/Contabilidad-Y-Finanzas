@@ -41,6 +41,7 @@ const MainLayout = ({ children, setView, activeView, onResetData }) => {
 
   const menuItems = [
     { id: 'dashboard', label: 'Salud Operativa', icon: IoGridOutline },
+    { id: 'catalogo', label: 'Catálogo Cuentas', icon: IoListOutline },
     { id: 'registro', label: 'Nuevo Asiento', icon: IoReceiptOutline },
     { id: 'diario', label: 'Libro Diario', icon: IoListOutline },
     { id: 'balanza', label: 'Balanza Comprobación', icon: IoCalculatorOutline },

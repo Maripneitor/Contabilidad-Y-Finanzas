@@ -8,6 +8,7 @@ import EstadoResultados from './components/EstadoResultados';
 import BalanzaComprobacion from './components/BalanzaComprobacion';
 import SelectorHistorico from './components/SelectorHistorico';
 import MainLayout from './layout/MainLayout';
+import CatalogoCuentas from './components/CatalogoCuentas';
 import { useNotification, Modal } from './components/UI/Notification';
 import { IoWarning } from 'react-icons/io5';
 
@@ -137,6 +138,7 @@ function App() {
                 </div>
 
                 {view === 'dashboard' && <Dashboard onQuickAction={quickAction} data={balanceData} />}
+                {view === 'catalogo' && <CatalogoCuentas />}
                 {view === 'registro' && <RegistroContable onTransactionComplete={fetchBalance} targetDate={targetDate} />}
                 {view === 'balance' && <BalanceGeneral data={balanceData} />}
                 {view === 'resultados' && <EstadoResultados data={balanceData} />}
