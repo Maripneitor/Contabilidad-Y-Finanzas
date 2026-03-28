@@ -1,354 +1,82 @@
 [
-  {
-    "id": 1,
-    "date": "2026-01-23",
-    "description": "Asiento de Apertura - Inicio de Operaciones",
-    "entries": [
-      {
-        "account": "AC-CA",
-        "debe": 5000,
-        "haber": 0
-      },
-      {
-        "account": "AC-BA",
-        "debe": 45000,
-        "haber": 0
-      },
-      {
-        "account": "AC-IN",
-        "debe": 80000,
-        "haber": 0
-      },
-      {
-        "account": "ANC-ME",
-        "debe": 10000,
-        "haber": 0
-      },
-      {
-        "account": "ANC-EC",
-        "debe": 25000,
-        "haber": 0
-      },
-      {
-        "account": "AD-GI",
-        "debe": 5000,
-        "haber": 0
-      },
-      {
-        "account": "AD-PU",
-        "debe": 2000,
-        "haber": 0
-      },
-      {
-        "account": "AD-RA",
-        "debe": 10000,
-        "haber": 0
-      },
-      {
-        "account": "C-CS",
-        "debe": 0,
-        "haber": 182000
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "date": "2026-01-28",
-    "description": "Factura 1: Compra de Mercancía en Efectivo",
-    "entries": [
-      {
-        "account": "AC-IN",
-        "debe": 20000,
-        "haber": 0
-      },
-      {
-        "account": "AC-IV",
-        "debe": 3000,
-        "haber": 0
-      },
-      {
-        "account": "AC-BA",
-        "debe": 0,
-        "haber": 23000
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "date": "2026-01-31",
-    "description": "Factura 2: Compra Mixta (20% Enganche)",
-    "entries": [
-      {
-        "account": "AC-IN",
-        "debe": 5000,
-        "haber": 0
-      },
-      {
-        "account": "AC-IV",
-        "debe": 160,
-        "haber": 0
-      },
-      {
-        "account": "AC-IP",
-        "debe": 640,
-        "haber": 0
-      },
-      {
-        "account": "AC-BA",
-        "debe": 0,
-        "haber": 1160
-      },
-      {
-        "account": "PC-PR",
-        "debe": 0,
-        "haber": 4640
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "date": "2026-02-04",
-    "description": "Factura 3: Compra 100% a Crédito",
-    "entries": [
-      {
-        "account": "AC-IN",
-        "debe": 10000,
-        "haber": 0
-      },
-      {
-        "account": "AC-IP",
-        "debe": 1600,
-        "haber": 0
-      },
-      {
-        "account": "PC-PR",
-        "debe": 0,
-        "haber": 11600
-      }
-    ]
-  },
-  {
-    "id": 5,
-    "date": "2026-02-06",
-    "description": "Venta de Mercancía y Costo de Venta",
-    "entries": [
-      {
-        "account": "AC-BA",
-        "debe": 2320,
-        "haber": 0
-      },
-      {
-        "account": "AC-CL",
-        "debe": 9280,
-        "haber": 0
-      },
-      {
-        "account": "PC-IT",
-        "debe": 0,
-        "haber": 320
-      },
-      {
-        "account": "PC-IX",
-        "debe": 0,
-        "haber": 1280
-      },
-      {
-        "account": "C-UN",
-        "debe": 0,
-        "haber": 4000
-      },
-      {
-        "account": "AC-IN",
-        "debe": 0,
-        "haber": 6000
-      }
-    ]
-  },
-  {
-    "id": 1771060382666,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382679,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382690,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382702,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382712,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382721,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382730,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382740,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382749,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382758,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382768,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382778,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382787,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382796,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382805,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382814,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  },
-  {
-    "id": 1771060382823,
-    "date": "2026-02-14",
-    "description": "Carga desde Excel",
-    "entries": [
-      {
-        "debe": 0,
-        "haber": 0
-      }
-    ]
-  }
+    { "id": 1, "date": "2026-01-23", "description": "Asiento de Apertura Nexium SAS", "entries": [
+        { "account": "AC-CA", "debe": 5000, "haber": 0 }, { "account": "AC-BA", "debe": 45000, "haber": 0 },
+        { "account": "AC-IN", "debe": 80000, "haber": 0 }, { "account": "ANC-ME", "debe": 10000, "haber": 0 },
+        { "account": "ANC-EC", "debe": 25000, "haber": 0 }, { "account": "AD-GI", "debe": 5000, "haber": 0 },
+        { "account": "AD-PU", "debe": 2000, "haber": 0 }, { "account": "AD-RA", "debe": 10000, "haber": 0 },
+        { "account": "C-CS", "debe": 0, "haber": 182000 }
+    ]},
+    { "id": 2, "date": "2026-01-28", "description": "Compra de mercancía al contado", "entries": [
+        { "account": "AC-IN", "debe": 20000, "haber": 0 }, { "account": "AC-IV", "debe": 3000, "haber": 0 },
+        { "account": "AC-BA", "debe": 0, "haber": 23000 }
+    ]},
+    { "id": 3, "date": "2026-01-31", "description": "Compra mixta de mercancía (20% contado)", "entries": [
+        { "account": "AC-IN", "debe": 5000, "haber": 0 }, { "account": "AC-IV", "debe": 160, "haber": 0 },
+        { "account": "AC-IP", "debe": 640, "haber": 0 }, { "account": "AC-BA", "debe": 0, "haber": 1160 },
+        { "account": "PC-PR", "debe": 0, "haber": 4640 }
+    ]},
+    { "id": 4, "date": "2026-02-04", "description": "Compra mercancía 100% crédito", "entries": [
+        { "account": "AC-IN", "debe": 10000, "haber": 0 }, { "account": "AC-IP", "debe": 1600, "haber": 0 },
+        { "account": "PC-PR", "debe": 0, "haber": 11600 }
+    ]},
+    { "id": 5, "date": "2026-02-06", "description": "Anticipo de Clientes (Ingreso Bancos)", "entries": [
+        { "account": "AC-BA", "debe": 2320, "haber": 0 }, { "account": "PC-AC", "debe": 0, "haber": 2000 },
+        { "account": "PC-IT", "debe": 0, "haber": 320 }
+    ]},
+    { "id": 6, "date": "2026-02-10", "description": "Pago 1 mes de renta anticipada", "entries": [
+        { "account": "AD-RA", "debe": 5000, "haber": 0 }, { "account": "AC-IV", "debe": 800, "haber": 0 },
+        { "account": "AC-BA", "debe": 0, "haber": 5800 }
+    ]},
+    { "id": 7, "date": "2026-02-12", "description": "Compra de papelería al contado", "entries": [
+        { "account": "AD-PU", "debe": 1000, "haber": 0 }, { "account": "AC-IV", "debe": 160, "haber": 0 },
+        { "account": "AC-BA", "debe": 0, "haber": 1160 }
+    ]},
+    { "id": 9, "date": "2026-02-28", "description": "Provisionamiento de Depreciación Mensual", "entries": [
+        { "account": "RE-GA", "debe": 708.33, "haber": 0 }, { "account": "ANC-DAM", "debe": 0, "haber": 83.33 },
+        { "account": "ANC-DAC", "debe": 0, "haber": 625 }
+    ]},
+    { "id": 8, "date": "2026-03-04", "description": "Venta total consolidada con aplicación de anticipo", "entries": [
+        { "account": "PC-AC", "debe": 2000, "haber": 0 }, { "account": "AC-CL", "debe": 9280, "haber": 0 },
+        { "account": "RI-VE", "debe": 0, "haber": 10000 }, { "account": "PC-IX", "debe": 0, "haber": 1280 }
+    ]},
+    { "id": 10, "date": "2026-03-08", "description": "Compra de mercancía adicional al contado", "entries": [
+        { "account": "RE-CO", "debe": 10000, "haber": 0 }, { "account": "AC-IV", "debe": 1600, "haber": 0 },
+        { "account": "AC-BA", "debe": 0, "haber": 11600 }
+    ]},
+    { "id": 11, "date": "2026-03-10", "description": "Compra de mercancía a crédito total", "entries": [
+        { "account": "RE-CO", "debe": 5000, "haber": 0 }, { "account": "AC-IP", "debe": 800, "haber": 0 },
+        { "account": "PC-PR", "debe": 0, "haber": 5800 }
+    ]},
+    { "id": 12, "date": "2026-03-12", "description": "Venta de mercancía 100% contado", "entries": [
+        { "account": "AC-BA", "debe": 11600, "haber": 0 }, { "account": "RI-VE", "debe": 0, "haber": 10000 },
+        { "account": "PC-IT", "debe": 0, "haber": 1600 }
+    ]},
+    { "id": 13, "date": "2026-03-14", "description": "Venta de mercancía 100% crédito", "entries": [
+        { "account": "AC-CL", "debe": 23200, "haber": 0 }, { "account": "RI-VE", "debe": 0, "haber": 20000 },
+        { "account": "PC-IX", "debe": 0, "haber": 3200 }
+    ]},
+    { "id": 14, "date": "2026-03-16", "description": "Pago de fletes y maniobras (Gasto Compra)", "entries": [
+        { "account": "RE-GC", "debe": 1000, "haber": 0 }, { "account": "AC-IV", "debe": 160, "haber": 0 },
+        { "account": "AC-BA", "debe": 0, "haber": 1160 }
+    ]},
+    { "id": 15, "date": "2026-03-18", "description": "Devolución sobre Venta al contado", "entries": [
+        { "account": "RE-DV", "debe": 2000, "haber": 0 }, { "account": "PC-IT", "debe": 320, "haber": 0 },
+        { "account": "AC-BA", "debe": 0, "haber": 2320 }
+    ]},
+    { "id": 16, "date": "2026-03-20", "description": "Rebaja concedida sobre Venta por defecto", "entries": [
+        { "account": "RE-RV", "debe": 1000, "haber": 0 }, { "account": "PC-IT", "debe": 160, "haber": 0 },
+        { "account": "AC-BA", "debe": 0, "haber": 1160 }
+    ]},
+    { "id": 17, "date": "2026-03-22", "description": "Pago de Gastos Operativos (Luz, Agua, Sueldos)", "entries": [
+        { "account": "RE-GV", "debe": 8000, "haber": 0 }, { "account": "AC-IV", "debe": 480, "haber": 0 },
+        { "account": "AC-BA", "debe": 0, "haber": 8480 }
+    ]},
+    { "id": 18, "date": "2026-03-24", "description": "Devolución sobre Compra (Reembolso Bancos)", "entries": [
+        { "account": "AC-BA", "debe": 2320, "haber": 0 }, { "account": "RI-DC", "debe": 0, "haber": 2000 },
+        { "account": "AC-IV", "debe": 0, "haber": 320 }
+    ]},
+    { "id": 19, "date": "2026-03-26", "description": "Rebaja obtenida sobre Compra (Bonificación)", "entries": [
+        { "account": "AC-BA", "debe": 1160, "haber": 0 }, { "account": "RI-RC", "debe": 0, "haber": 1000 },
+        { "account": "AC-IV", "debe": 0, "haber": 160 }
+    ]}
 ]

@@ -1,265 +1,174 @@
 import React, { useState, useEffect } from 'react';
-import {
-    LayoutDashboard,
-    Receipt,
-    BookOpen,
-    FileUp,
-    Scale,
-    Calendar,
-    PlusCircle,
-    MinusCircle
-} from 'lucide-react';
-import BalanceGeneral from './components/BalanceGeneral';
+import Dashboard from './views/Dashboard';
 import RegistroContable from './components/RegistroContable';
-import ExcelLoader from './components/ExcelLoader';
+import BalanceGeneral from './components/BalanceGeneral';
 import LibroDiario from './components/LibroDiario';
+import ExcelLoader from './components/ExcelLoader';
+import EstadoResultados from './components/EstadoResultados';
+import BalanzaComprobacion from './components/BalanzaComprobacion';
 import SelectorHistorico from './components/SelectorHistorico';
+import MainLayout from './layout/MainLayout';
+import { useNotification, Modal } from './components/UI/Notification';
+import { IoWarning } from 'react-icons/io5';
 
-const ACCOUNTS = [
-    { code: 'AC-CA', name: 'Caja y Efectivo', icon: '' },
-    { code: 'AC-BA', name: 'Bancos', icon: '' },
-    { code: 'AC-IN', name: 'Inventarios', icon: '' },
-    { code: 'AC-CL', name: 'Clientes', icon: '' },
-    { code: 'AC-IV', name: 'IVA Acreditable', icon: '' },
-    { code: 'AC-IP', name: 'IVA por Acreditar', icon: '' },
-    { code: 'ANC-ME', name: 'Mobiliario y Equipo de Oficina', icon: '' },
-    { code: 'ANC-EC', name: 'Equipo de Cómputo', icon: '' },
-    { code: 'AD-GI', name: 'Gastos de Instalación', icon: '' },
-    { code: 'AD-PU', name: 'Papelería y Útiles', icon: '' },
-    { code: 'AD-RA', name: 'Rentas Pagadas por Anticipado', icon: '' },
-    { code: 'PC-PR', name: 'Proveedores', icon: '' },
-    { code: 'PC-IT', name: 'IVA Trasladado', icon: '' },
-    { code: 'PC-IX', name: 'IVA por Trasladar', icon: '' },
-    { code: 'PC-AC', name: 'Anticipo de Clientes', icon: '' },
-    { code: 'C-CS', name: 'Capital Social', icon: '' },
-    { code: 'C-UN', name: 'Utilidad del Ejercicio', icon: '' },
-];
+import { ACCOUNTS } from './constants/accounts';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5001/api";
 
 function App() {
-    const [view, setView] = useState('smart');
+    const { show, NotificationContainer } = useNotification();
+    const [view, setView] = useState('dashboard');
     const [balanceData, setBalanceData] = useState(null);
-    const [targetDate, setTargetDate] = useState("2026-02-06"); // Por defecto la última fecha de tus hitos
-
-    // Manual Form States
-    const [descripcion, setDescripcion] = useState('');
-    const [entries, setEntries] = useState([]);
-    const [currentAccount, setCurrentAccount] = useState(ACCOUNTS[0].code);
-    const [currentDebe, setCurrentDebe] = useState(0);
-    const [currentHaber, setCurrentHaber] = useState(0);
+    const [targetDate, setTargetDate] = useState("2026-03-26");
+    const [isSeedModalOpen, setIsSeedModalOpen] = useState(false);
 
     const fetchBalance = async () => {
         try {
-            const resp = await fetch(`http://localhost:5000/api/balance?targetDate=${targetDate}`);
+            const resp = await fetch(`${API_BASE_URL}/balance?targetDate=${targetDate}`);
             if (resp.ok) {
                 const data = await resp.json();
                 setBalanceData(data);
             }
         } catch (e) {
-            console.error(e);
+            show("Error de conexión con el motor Nexium", "error");
+        }
+    };
+
+    const runSeed = async () => {
+        try {
+            const res = await fetch(`${API_BASE_URL}/seed`, { method: 'POST' });
+            if (res.ok) {
+                show("Sistema Nexium restaurado con datos de clase (19 asientos)", "success");
+                setIsSeedModalOpen(false);
+                fetchBalance();
+            }
+        } catch (e) {
+            show("Fallo al restaurar base de datos", "error");
         }
     };
 
     const handleExcelData = async (data) => {
         if (!data || data.length === 0) return;
 
-        // Estructura exacta "Hoja Maestra": Fecha, Descripción, Cuenta (Código), Debe (+), Haber (-)
+        // Agrupar filas por Fecha y Descripción para crear asientos compuestos
+        const groupings = {};
+        
         for (const row of data) {
+            const fecha = row["Fecha"] || targetDate;
+            const desc = row["Descripción"] || row["Concepto"] || "Importación Masiva Nexium";
+            const key = `${fecha}|${desc}`;
+
+            const cuentaCode = row["Cuenta (Código)"] || row["Código"] || row["Cuenta"];
+            const accountObj = ACCOUNTS.find(a => cuentaCode?.toString() === a.code);
+
+            if (!accountObj) continue;
+
+            if (!groupings[key]) {
+                groupings[key] = { date: fecha, description: desc, entries: [] };
+            }
+
+            groupings[key].entries.push({
+                account: accountObj.code,
+                debe: parseFloat(row["Debe (+)"]) || parseFloat(row["Debe"]) || 0,
+                haber: parseFloat(row["Haber (-)"]) || parseFloat(row["Haber"]) || 0
+            });
+        }
+
+        const transactions = Object.values(groupings);
+        
+        if (transactions.length === 0) {
+            show("No se encontraron cuentas válidas en el archivo.", "error");
+            return;
+        }
+
+        let successCount = 0;
+        for (const trans of transactions) {
             try {
-                // Buscamos las columnas específicas
-                const cuentaCode = row["Cuenta (Código)"] || row["Código"] || row["Cuenta"];
-                const accountObj = ACCOUNTS.find(a => cuentaCode?.toString() === a.code);
-
-                if (!accountObj) continue;
-
-                await fetch('http://localhost:5000/api/transaccion', {
+                const res = await fetch(`${API_BASE_URL}/transaccion`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        date: row["Fecha"] || targetDate,
-                        description: row["Descripción"] || row["Concepto"] || "Carga desde Hoja Maestra",
-                        entries: [{
-                            account: accountObj.code,
-                            debe: parseFloat(row["Debe (+)"]) || parseFloat(row["Debe"]) || 0,
-                            haber: parseFloat(row["Haber (-)"]) || parseFloat(row["Haber"]) || 0
-                        }]
-                    })
+                    body: JSON.stringify(trans)
                 });
+                if (res.ok) successCount++;
             } catch (e) { console.error(e); }
         }
-        alert("¡Hoja Maestra procesada con éxito!");
+
+        show(`¡Ingesta Nexium completada! ${successCount} asientos generados.`, "success");
         fetchBalance();
-        setView('balance');
+        setView('diario');
     };
 
     const quickAction = async (type) => {
-        const monto = prompt(type === 'in' ? "¿Cuánto dinero entró?" : "¿Cuánto dinero gastaste?");
+        const monto = prompt(type === 'in' ? "¿Cuánto dinero entró? (Nexium SAS)" : "¿Cuánto dinero gastaste?");
         if (!monto || isNaN(monto)) return;
 
         const val = parseFloat(monto);
-        const description = type === 'in' ? "¡Entró dinero rápido!" : "¡Gasto rápido!";
+        const description = type === 'in' ? "Venta Directa - Dashboard" : "Gasto Operativo - Dashboard";
 
         const entries = type === 'in'
-            ? [{ account: 'AC-CA', debe: val, haber: 0 }, { account: 'C-CS', debe: 0, haber: val }]
+            ? [{ account: 'AC-CA', debe: val, haber: 0 }, { account: 'C-UN', debe: 0, haber: val }]
             : [{ account: 'PC-PR', debe: 0, haber: val }, { account: 'AC-BA', debe: 0, haber: val }];
 
         try {
-            await fetch('http://localhost:5000/api/transaccion', {
+            const res = await fetch(`${API_BASE_URL}/transaccion`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ date: targetDate, description, entries })
             });
-            fetchBalance();
-            alert("¡Acción rápida registrada!");
-        } catch (e) { console.error(e); }
-    };
 
-    const addEntry = () => {
-        if (currentDebe === 0 && currentHaber === 0) return;
-        setEntries([...entries, { account: currentAccount, debe: currentDebe, haber: currentHaber }]);
-        setCurrentDebe(0);
-        setCurrentHaber(0);
-    };
-
-    const diff = entries.reduce((acc, e) => acc + e.debe - e.haber, 0);
-    const isBalancedManual = Math.abs(diff) < 0.01;
-
-    const handleSubmitManual = async (e) => {
-        e.preventDefault();
-        if (entries.length === 0 || !isBalancedManual) return;
-
-        try {
-            const res = await fetch('http://localhost:5000/api/transaccion', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    date: targetDate,
-                    description: descripcion || "Asiento Manual",
-                    entries: entries
-                })
-            });
             if (res.ok) {
-                alert('¡Asiento guardado!');
-                setDescripcion('');
-                setEntries([]);
                 fetchBalance();
+                show("¡Documento Nexium generado exitosamente!", "success");
             }
-        } catch (error) { alert('Error al conectar con Nexium.'); }
+        } catch (e) {
+            show("Error al registrar acción rápida", "error");
+        }
     };
 
     useEffect(() => {
         fetchBalance();
-    }, [view, targetDate]);
+    }, [targetDate]);
 
     return (
-        <div className="container">
-            <header style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '1.5rem', background: 'var(--bg-card)', borderRadius: '1rem', borderBottom: '4px solid #6366f1' }}>
-                <h1 style={{ marginBottom: '0.25rem', color: '#6366f1', fontSize: '2.5rem' }}>Nexium, S.A.S.</h1>
-                <p style={{ color: 'var(--text-muted)', fontWeight: 'bold' }}>Sistema de Contabilidad General</p>
-            </header>
+        <MainLayout setView={setView} activeView={view} onResetData={() => setIsSeedModalOpen(true)}>
+            <div className="max-w-[1600px] mx-auto pb-20">
+                <div className="mb-12">
+                    <SelectorHistorico onDateSelect={setTargetDate} activeDate={targetDate} />
+                </div>
 
-            {/* --- SELECTOR HISTÓRICO --- */}
-            <SelectorHistorico onDateSelect={setTargetDate} activeDate={targetDate} />
-
-            {/* --- BOTONES DE ACCIÓN RÁPIDA --- */}
-            <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
-                <button onClick={() => quickAction('in')} style={{ background: '#22c55e', color: 'white', flex: 1, height: '60px', borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', fontSize: '1.1rem' }}>
-                    <PlusCircle size={24} /> Entró dinero
-                </button>
-                <button onClick={() => quickAction('out')} style={{ background: '#ef4444', color: 'white', flex: 1, height: '60px', borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', fontSize: '1.1rem' }}>
-                    <MinusCircle size={24} /> Compra/Gasto
-                </button>
+                {view === 'dashboard' && <Dashboard onQuickAction={quickAction} data={balanceData} />}
+                {view === 'registro' && <RegistroContable onTransactionComplete={fetchBalance} targetDate={targetDate} />}
+                {view === 'balance' && <BalanceGeneral data={balanceData} />}
+                {view === 'resultados' && <EstadoResultados data={balanceData} />}
+                {view === 'balanza' && <BalanzaComprobacion data={balanceData} />}
+                {view === 'diario' && <LibroDiario history={balanceData?.history} onUpdate={fetchBalance} />}
+                {view === 'excel' && <ExcelLoader onDataLoaded={handleExcelData} />}
             </div>
 
-            <nav style={{ display: 'flex', gap: '0.75rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
-                <button onClick={() => setView('smart')} style={{ background: view === 'smart' ? '#22c55e' : 'var(--bg-card)', flex: 1 }}>
-                    <Receipt size={18} /> Asistente
-                </button>
-                <button onClick={() => setView('manual')} style={{ background: view === 'manual' ? '#6366f1' : 'var(--bg-card)', flex: 1 }}>
-                    <BookOpen size={18} /> Diario
-                </button>
-                <button onClick={() => setView('balance')} style={{ background: view === 'balance' ? '#8b5cf6' : 'var(--bg-card)', flex: 1 }}>
-                    <Scale size={18} /> Balance General
-                </button>
-            </nav>
-
-            {view === 'smart' && <RegistroContable onTransactionComplete={fetchBalance} targetDate={targetDate} />}
-            {view === 'ledger' && <LibroDiario history={balanceData?.history} onUpdate={fetchBalance} />}
-            {view === 'excel' && (
-                <div className="card">
-                    <h2>Cargar Hoja Maestra de Excel</h2>
-                    <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>Asegúrate de que tu Excel tenga las columnas: Fecha, Descripción, Cuenta (Código), Debe (+), Haber (-)</p>
-                    <ExcelLoader onDataLoaded={handleExcelData} />
+            <Modal 
+                isOpen={isSeedModalOpen} 
+                onClose={() => setIsSeedModalOpen(false)} 
+                title="Restaurar Base de Datos"
+                footer={(
+                    <>
+                        <button onClick={() => setIsSeedModalOpen(false)} className="px-6 py-3 rounded-2xl font-bold bg-surface-container text-on-surface">Cancelar</button>
+                        <button onClick={runSeed} className="px-8 py-3 rounded-2xl font-bold bg-error text-white shadow-lg shadow-error/20">Sí, Restaurar Todo</button>
+                    </>
+                )}
+            >
+                <div className="text-center space-y-4">
+                    <div className="w-20 h-20 bg-error/10 text-error rounded-full flex items-center justify-center mx-auto mb-6">
+                        <IoWarning size={40} />
+                    </div>
+                    <p className="text-on-surface font-headline font-bold text-xl">¿Estás completamente seguro?</p>
+                    <p className="text-sm text-outline leading-relaxed">
+                        Esta acción borrará todas las transacciones actuales e inyectará los <strong>19 asientos contables</strong> definidos en el archivo de clase (2.md).
+                    </p>
                 </div>
-            )}
+            </Modal>
 
-            {view === 'manual' && (
-                <div className="card">
-                    <h2>Escribir en el Libro Mágico</h2>
-                    <form onSubmit={handleSubmitManual}>
-                        <div className="form-group">
-                            <label>¿Qué pasó hoy?</label>
-                            <input type="text" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} placeholder="Ej: Compramos dulces para vender..." required />
-                        </div>
-                        <div style={{ border: '1px solid rgba(255,255,255,0.05)', padding: '1rem', borderRadius: '1rem', background: 'rgba(0,0,0,0.1)' }}>
-                            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-end', marginBottom: '1rem' }}>
-                                <div style={{ flex: 2 }}><label>Cuenta Contable</label>
-                                    <select value={currentAccount} onChange={(e) => setCurrentAccount(e.target.value)}>
-                                        {ACCOUNTS.map(a => <option key={a.code} value={a.code}>{a.name}</option>)}
-                                    </select>
-                                </div>
-                                <div style={{ flex: 1 }}><label>Entró (+)</label><input type="number" value={currentDebe} onChange={(e) => setCurrentDebe(parseFloat(e.target.value) || 0)} /></div>
-                                <div style={{ flex: 1 }}><label>Salió (-)</label><input type="number" value={currentHaber} onChange={(e) => setCurrentHaber(parseFloat(e.target.value) || 0)} /></div>
-                                <button type="button" onClick={addEntry} style={{ padding: '1rem', borderRadius: '10px' }}>➕</button>
-                            </div>
-                            <table className="account-table">
-                                <thead><tr><th>Cajita</th><th>Entró</th><th>Salió</th></tr></thead>
-                                <tbody>
-                                    {entries.map((e, i) => (
-                                        <tr key={i}>
-                                            <td>{e.account}</td>
-                                            <td style={{ color: '#22c55e' }}>{e.debe > 0 ? `+$${e.debe}` : ''}</td>
-                                            <td style={{ color: '#ef4444' }}>{e.haber > 0 ? `-$${e.haber}` : ''}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div style={{
-                            marginTop: '1.5rem',
-                            padding: '1rem',
-                            borderRadius: '0.5rem',
-                            background: isBalancedManual ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-                            color: isBalancedManual ? '#22c55e' : '#ef4444',
-                            fontWeight: 'bold',
-                            textAlign: 'center'
-                        }}>
-                            {isBalancedManual
-                                ? "Balance cuadrado correctamente"
-                                : `Diferencia en el asiento: $${Math.abs(diff)}`}
-                        </div>
-
-                        <button
-                            type="submit"
-                            disabled={!isBalancedManual || entries.length === 0}
-                            style={{
-                                width: '100%',
-                                marginTop: '1rem',
-                                background: isBalancedManual ? '#6366f1' : '#475569',
-                                height: '50px',
-                                fontSize: '1.1rem',
-                                cursor: isBalancedManual ? 'pointer' : 'not-allowed',
-                                opacity: isBalancedManual ? 1 : 0.7
-                            }}
-                        >
-                            Guardar mi Asiento
-                        </button>
-                    </form>
-                </div>
-            )}
-
-            {view === 'balance' && <BalanceGeneral data={balanceData} />}
-        </div>
+            <NotificationContainer />
+        </MainLayout>
     );
 }
 

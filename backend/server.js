@@ -8,5 +8,5 @@ app.use(express.json());
 
 app.use('/api', accountingRoutes);
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Servidor Nexium corriendo en puerto ${PORT}`));
