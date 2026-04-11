@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const formatCurrency = (val) =>
     new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(val || 0);
@@ -40,28 +41,51 @@ const EstadoResultados = ({ data }) => {
 
     const utilidadNeta = utilidadBruta - totalGastosOp;
 
+    const containerVariants = {
+        hidden: { opacity: 0, scale: 0.98 },
+        visible: { 
+            opacity: 1, 
+            scale: 1,
+            transition: { duration: 0.5, staggerChildren: 0.05 }
+        }
+    };
+
+    const sectionVariants = {
+        hidden: { opacity: 0, y: 15 },
+        visible: { opacity: 1, y: 0 }
+    };
+
     return (
-        <div className="space-y-8 animate-in fade-in duration-500 max-w-4xl mx-auto">
-            <header className="flex justify-between items-end">
+        <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            key={data?.header?.date}
+            className="space-y-8 max-w-4xl mx-auto"
+        >
+            <motion.header variants={sectionVariants} className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 px-2">
                 <div>
                     <p className="text-[10px] font-bold text-outline uppercase tracking-widest mb-1 opacity-60">Reporte de Desempeño Nexium</p>
                     <h1 className="text-4xl font-extrabold font-headline tracking-tighter text-on-surface">
                         Estado de <span className="text-primary italic">Resultados</span>
                     </h1>
                 </div>
-                <div className="bg-surface-container-lowest dark:bg-slate-900 p-4 rounded-2xl border border-surface-container shadow-sm flex items-center gap-4">
+                <div className="bg-surface-container-low p-4 rounded-2xl border border-surface-container shadow-sm flex items-center gap-4">
                     <span className="text-[10px] font-bold text-outline uppercase">Inv. Final Manual:</span>
                     <input 
                         type="number" 
                         value={invFinalManual} 
                         onChange={(e) => setInvFinalManual(parseFloat(e.target.value) || 0)}
-                        className="bg-surface-container-low dark:bg-slate-800 border-none rounded-lg px-3 py-1 text-xs font-bold w-24 outline-none focus:ring-1 ring-primary"
+                        className="bg-surface-container-low dark:bg-slate-800 border-none rounded-lg px-3 py-1 text-xs font-bold w-24 outline-none focus:ring-1 ring-primary transition-all"
                         placeholder="Estimado..."
                     />
                 </div>
-            </header>
+            </motion.header>
 
-            <div className={`bg-surface-container-lowest rounded-[2.5rem] p-12 shadow-2xl border border-surface-container transition-colors duration-300 dark:bg-slate-900 relative overflow-hidden`}>
+            <motion.div 
+                variants={sectionVariants}
+                className={`bg-surface-container-lowest rounded-[2.5rem] p-12 shadow-2xl border border-surface-container transition-colors duration-300 relative overflow-hidden`}
+            >
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
                 
                 <div className="text-center mb-12 border-b border-surface-container/50 pb-8 relative z-10">
@@ -73,7 +97,14 @@ const EstadoResultados = ({ data }) => {
                     {/* Ventas section */}
                     <div className="grid grid-cols-2 items-center py-2 border-b border-surface-container/30">
                         <span className="text-sm font-bold text-on-surface-variant">Ventas Totales</span>
-                        <span className="text-sm font-extrabold text-right tabular-nums">{formatCurrency(ventasTotales)}</span>
+                        <motion.span 
+                            key={ventasTotales}
+                            initial={{ scale: 1.1, color: '#3b82f6' }}
+                            animate={{ scale: 1, color: 'inherit' }}
+                            className="text-sm font-extrabold text-right tabular-nums"
+                        >
+                            {formatCurrency(ventasTotales)}
+                        </motion.span>
                     </div>
                     
                     <div className="flex flex-col gap-2 pl-6 border-l-2 border-surface-container">
@@ -87,7 +118,7 @@ const EstadoResultados = ({ data }) => {
                         </div>
                     </div>
 
-                    <div className="flex justify-between items-center py-4 bg-tertiary/5 px-6 rounded-2xl font-extrabold text-tertiary border border-tertiary/10">
+                    <div className="flex justify-between items-center py-4 bg-tertiary/5 px-6 rounded-2xl font-extrabold text-tertiary border border-tertiary/10 shadow-inner">
                         <span className="uppercase text-[10px] tracking-widest">Ventas Netas</span>
                         <span className="text-lg">{formatCurrency(ventasNetas)}</span>
                     </div>
@@ -131,15 +162,25 @@ const EstadoResultados = ({ data }) => {
                             <div className="pt-6 border-t border-surface-container-high flex justify-between items-center">
                                 <div className="flex flex-col">
                                     <span className="text-[10px] uppercase tracking-widest font-extrabold text-outline mb-1">Resultado Neto</span>
-                                    <span className={`text-4xl font-extrabold font-headline tracking-tightest ${utilidadNeta >= 0 ? 'text-primary' : 'text-error'}`}>
+                                    <motion.span 
+                                        key={utilidadNeta}
+                                        initial={{ y: 5, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        className={`text-4xl font-extrabold font-headline tracking-tightest ${utilidadNeta >= 0 ? 'text-primary' : 'text-error'}`}
+                                    >
                                         {formatCurrency(utilidadNeta)}
-                                    </span>
+                                    </motion.span>
                                 </div>
-                                <div className={`w-16 h-16 rounded-full flex items-center justify-center ${utilidadNeta >= 0 ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-error text-white shadow-lg shadow-error/20'}`}>
+                                <motion.div 
+                                    key={utilidadNeta >= 0 ? 'up' : 'down'}
+                                    initial={{ scale: 0.8, rotate: -15 }}
+                                    animate={{ scale: 1, rotate: 0 }}
+                                    className={`w-16 h-16 rounded-full flex items-center justify-center ${utilidadNeta >= 0 ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-error text-white shadow-lg shadow-error/20'}`}
+                                >
                                     <span className="material-symbols-outlined text-3xl">
                                         {utilidadNeta >= 0 ? 'trending_up' : 'trending_down'}
                                     </span>
-                                </div>
+                                </motion.div>
                             </div>
                         </div>
                     </div>
@@ -148,15 +189,17 @@ const EstadoResultados = ({ data }) => {
                 <div className="mt-16 pt-12 border-t border-surface-container/50 grid grid-cols-2 gap-12 text-center relative z-10">
                     <div className="group">
                         <div className="w-32 h-0.5 bg-outline mx-auto mb-4 opacity-30 group-hover:opacity-100 transition-opacity"></div>
-                        <p className="text-[9px] font-extrabold uppercase tracking-widest text-outline">Firma Gerencia</p>
+                        <p className="text-xs font-black text-on-surface uppercase">{data.footer?.elaboro}</p>
+                        <p className="text-[9px] font-extrabold uppercase tracking-widest text-outline">Elaboró</p>
                     </div>
                     <div className="group">
                         <div className="w-32 h-0.5 bg-outline mx-auto mb-4 opacity-30 group-hover:opacity-100 transition-opacity"></div>
-                        <p className="text-[9px] font-extrabold uppercase tracking-widest text-outline">Firma Contador</p>
+                        <p className="text-xs font-black text-on-surface uppercase">{data.footer?.autorizo}</p>
+                        <p className="text-[9px] font-extrabold uppercase tracking-widest text-outline">Autorizó</p>
                     </div>
                 </div>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 };
 

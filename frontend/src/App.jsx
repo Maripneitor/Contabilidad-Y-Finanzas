@@ -9,6 +9,8 @@ import BalanzaComprobacion from './components/BalanzaComprobacion';
 import SelectorHistorico from './components/SelectorHistorico';
 import MainLayout from './layout/MainLayout';
 import CatalogoCuentas from './components/CatalogoCuentas';
+import LibroMayor from './components/LibroMayor';
+import GuiaAcademica from './components/GuiaAcademica';
 import { useNotification, Modal } from './components/UI/Notification';
 import { IoWarning } from 'react-icons/io5';
 
@@ -144,6 +146,8 @@ function App() {
                 {view === 'resultados' && <EstadoResultados data={balanceData} />}
                 {view === 'balanza' && <BalanzaComprobacion data={balanceData} />}
                 {view === 'diario' && <LibroDiario history={balanceData?.history} onUpdate={fetchBalance} />}
+                {view === 'mayor' && <LibroMayor history={balanceData?.history} />}
+                {view === 'academica' && <GuiaAcademica />}
                 {view === 'excel' && <ExcelLoader onDataLoaded={handleExcelData} />}
             </div>
 

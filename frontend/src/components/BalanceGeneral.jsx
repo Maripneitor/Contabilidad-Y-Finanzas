@@ -1,11 +1,17 @@
 import React, { useRef } from 'react';
 import html2pdf from 'html2pdf.js';
+import { motion } from 'framer-motion';
 
 const formatCurrency = (val) =>
     new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(val || 0);
 
 const Row = ({ label, val, color, icon, isNegative }) => (
-    <div className="flex justify-between items-center py-2.5 border-b border-surface-container/30 last:border-0 hover:bg-surface-container/5 transition-colors px-2 rounded-lg group text-left">
+    <motion.div 
+        layout
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        className="flex justify-between items-center py-2.5 border-b border-surface-container/30 last:border-0 hover:bg-surface-container/5 transition-colors px-2 rounded-lg group text-left"
+    >
         <div className="flex items-center gap-3">
             <span className={`w-1.5 h-1.5 rounded-full ${color}`}></span>
             <span className={`text-[13px] font-medium text-on-surface-variant group-hover:text-on-surface transition-colors ${isNegative ? 'italic' : ''}`}>
@@ -15,7 +21,7 @@ const Row = ({ label, val, color, icon, isNegative }) => (
         <span className={`text-[13px] font-bold tabular-nums ${isNegative ? 'text-error' : 'text-on-surface'}`}>
             {isNegative ? `(${formatCurrency(Math.abs(val))})` : formatCurrency(val)}
         </span>
-    </div>
+    </motion.div>
 );
 
 const BalanceGeneral = ({ data }) => {
@@ -72,10 +78,29 @@ const BalanceGeneral = ({ data }) => {
         html2pdf().set(opt).from(element).save();
     };
 
+    const containerVariants = {
+        hidden: { opacity: 0, scale: 0.98 },
+        visible: { 
+            opacity: 1, 
+            scale: 1,
+            transition: { duration: 0.5, staggerChildren: 0.05 }
+        }
+    };
+
     return (
-        <div className="space-y-8 max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            key={h.date}
+            className="space-y-8 max-w-5xl mx-auto"
+        >
             {/* Action Bar */}
-            <section className="flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-container-low p-4 rounded-2xl border border-surface-container shadow-sm">
+            <motion.section 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-container-low p-4 rounded-2xl border border-surface-container shadow-sm"
+            >
                 <div>
                     <h2 className="text-lg font-bold text-on-surface">Generación de Reporte Oficial</h2>
                     <p className="text-xs text-outline italic">Cumple con la estructura de Encabezado, Cuerpo y Pie.</p>
@@ -87,20 +112,22 @@ const BalanceGeneral = ({ data }) => {
                     <span className="material-symbols-outlined group-hover:rotate-12 transition-transform">picture_as_pdf</span>
                     <span>Descargar PDF</span>
                 </button>
-            </section>
+            </motion.section>
 
             {/* Document Container */}
-            <div 
+            <motion.div 
                 ref={reportRef} 
-                className="bg-white text-slate-900 p-12 shadow-2xl rounded-sm border border-slate-200 min-h-[1056px] flex flex-col justify-between"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-surface-container-lowest text-on-surface p-12 shadow-2xl rounded-sm border border-outline/20 min-h-[1056px] flex flex-col justify-between"
                 style={{ fontFamily: "'Inter', sans-serif" }}
             >
                 {/* 1. ENCABEZADO (Header) */}
-                <header className="text-center border-b-2 border-slate-900 pb-6 mb-10">
-                    <h1 className="text-3xl font-black uppercase tracking-tighter text-slate-900 mb-1">{h.company}</h1>
-                    <h2 className="text-xl font-bold text-slate-700 mb-1">{h.report}</h2>
-                    <p className="text-sm font-medium text-slate-500 uppercase tracking-widest">Al {new Date(h.date).toLocaleDateString('es-MX', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
-                    <p className="text-[10px] text-slate-400 mt-2 italic">(Cifras expresadas en Pesos Mexicanos MXN)</p>
+                <header className="text-center border-b-2 border-on-surface pb-6 mb-10">
+                    <h1 className="text-3xl font-black uppercase tracking-tighter text-on-surface mb-1">{h.company}</h1>
+                    <h2 className="text-xl font-bold text-on-surface-variant mb-1">{h.report}</h2>
+                    <p className="text-sm font-medium text-outline uppercase tracking-widest">Al {new Date(h.date).toLocaleDateString('es-MX', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
+                    <p className="text-[10px] text-outline mt-2 italic">(Cifras expresadas en Pesos Mexicanos MXN)</p>
                 </header>
 
                 {/* 2. CUERPO (Body) */}
@@ -109,71 +136,71 @@ const BalanceGeneral = ({ data }) => {
                         {/* COLUMNA ACTIVOS */}
                         <div className="space-y-8">
                             <div>
-                                <h3 className="text-[11px] font-black uppercase tracking-[0.2em] mb-4 text-slate-900 border-l-4 border-slate-900 pl-3">Activo</h3>
+                                <h3 className="text-[11px] font-black uppercase tracking-[0.2em] mb-4 text-on-surface border-l-4 border-on-surface pl-3">Activo</h3>
                                 
                                 <div className="ml-4 space-y-6">
                                     {/* Circulante */}
                                     <div>
-                                        <h4 className="text-[10px] font-bold text-slate-500 uppercase mb-2">Circulante</h4>
-                                        <Row label="Caja" val={getSaldo('AC-CA')} color="bg-slate-400" />
-                                        <Row label="Bancos" val={getSaldo('AC-BA')} color="bg-slate-400" />
-                                        <Row label="Inventarios" val={getSaldo('AC-IN')} color="bg-slate-400" />
-                                        <Row label="Clientes" val={getSaldo('AC-CL')} color="bg-slate-400" />
-                                        <Row label="IVA Acreditable" val={getSaldo('AC-IV')} color="bg-slate-400" />
-                                        <Row label="IVA por Acreditar" val={getSaldo('AC-IP')} color="bg-slate-400" />
+                                        <h4 className="text-[10px] font-bold text-outline uppercase mb-2">Circulante</h4>
+                                        <Row label="Caja" val={getSaldo('AC-CA')} color="bg-outline" />
+                                        <Row label="Bancos" val={getSaldo('AC-BA')} color="bg-outline" />
+                                        <Row label="Inventarios" val={getSaldo('AC-IN')} color="bg-outline" />
+                                        <Row label="Clientes" val={getSaldo('AC-CL')} color="bg-outline" />
+                                        <Row label="IVA Acreditable" val={getSaldo('AC-IV')} color="bg-outline" />
+                                        <Row label="IVA por Acreditar" val={getSaldo('AC-IP')} color="bg-outline" />
                                     </div>
 
                                     {/* No Circulante / Fijo */}
                                     <div>
-                                        <h4 className="text-[10px] font-bold text-slate-500 uppercase mb-2">No Circulante (Fijo)</h4>
-                                        <Row label="Mobiliario y Equipo" val={getSaldo('ANC-ME')} color="bg-slate-400" />
-                                        <Row label="Dep. Acum. Mobiliario" val={getSaldo('ANC-DAM')} color="bg-red-400" isNegative={true} />
-                                        <Row label="Equipo de Cómputo" val={getSaldo('ANC-EC')} color="bg-slate-400" />
-                                        <Row label="Dep. Acum. Cómputo" val={getSaldo('ANC-DAC')} color="bg-red-400" isNegative={true} />
+                                        <h4 className="text-[10px] font-bold text-outline uppercase mb-2">No Circulante (Fijo)</h4>
+                                        <Row label="Mobiliario y Equipo" val={getSaldo('ANC-ME')} color="bg-outline" />
+                                        <Row label="Dep. Acum. Mobiliario" val={getSaldo('ANC-DAM')} color="bg-error" isNegative={true} />
+                                        <Row label="Equipo de Cómputo" val={getSaldo('ANC-EC')} color="bg-outline" />
+                                        <Row label="Dep. Acum. Cómputo" val={getSaldo('ANC-DAC')} color="bg-error" isNegative={true} />
                                     </div>
 
                                     {/* Diferido */}
                                     <div>
-                                        <h4 className="text-[10px] font-bold text-slate-500 uppercase mb-2">Diferido (Otros Activos)</h4>
-                                        <Row label="Gastos de Instalación" val={getSaldo('AD-GI')} color="bg-slate-400" />
-                                        <Row label="Papelería y Útiles" val={getSaldo('AD-PU')} color="bg-slate-400" />
-                                        <Row label="Rentas Pag. Anticipado" val={getSaldo('AD-RA')} color="bg-slate-400" />
+                                        <h4 className="text-[10px] font-bold text-outline uppercase mb-2">Diferido (Otros Activos)</h4>
+                                        <Row label="Gastos de Instalación" val={getSaldo('AD-GI')} color="bg-outline" />
+                                        <Row label="Papelería y Útiles" val={getSaldo('AD-PU')} color="bg-outline" />
+                                        <Row label="Rentas Pag. Anticipado" val={getSaldo('AD-RA')} color="bg-outline" />
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="pt-4 border-t-2 border-slate-900 flex justify-between px-2 bg-slate-50 py-2">
-                                <span className="text-sm font-black uppercase text-slate-900">Total Activo</span>
-                                <span className="text-sm font-black text-slate-900 underline decoration-double">{formatCurrency(totalActivo)}</span>
+                            <div className="pt-4 border-t-2 border-on-surface flex justify-between px-2 bg-surface-container-low py-2">
+                                <span className="text-sm font-black uppercase text-on-surface">Total Activo</span>
+                                <span className="text-sm font-black text-on-surface underline decoration-double">{formatCurrency(totalActivo)}</span>
                             </div>
                         </div>
 
                         {/* COLUMNA PASIVO Y CAPITAL */}
                         <div className="space-y-8">
                             <div>
-                                <h3 className="text-[11px] font-black uppercase tracking-[0.2em] mb-4 text-slate-900 border-l-4 border-slate-900 pl-3">Pasivo y Capital</h3>
+                                <h3 className="text-[11px] font-black uppercase tracking-[0.2em] mb-4 text-on-surface border-l-4 border-on-surface pl-3">Pasivo y Capital</h3>
                                 <div className="ml-4 space-y-6">
                                     {/* Pasivo Corto Plazo */}
                                     <div>
-                                        <h4 className="text-[10px] font-bold text-slate-500 uppercase mb-2">Pasivo a Corto Plazo</h4>
-                                        <Row label="Proveedores" val={Math.abs(getSaldo('PC-PR'))} color="bg-slate-400" />
-                                        <Row label="IVA Trasladado" val={Math.abs(getSaldo('PC-IT'))} color="bg-slate-400" />
-                                        <Row label="IVA por Trasladar" val={Math.abs(getSaldo('PC-IX'))} color="bg-slate-400" />
-                                        <Row label="Anticipo de Clientes" val={Math.abs(getSaldo('PC-AC'))} color="bg-slate-400" />
+                                        <h4 className="text-[10px] font-bold text-outline uppercase mb-2">Pasivo a Corto Plazo</h4>
+                                        <Row label="Proveedores" val={Math.abs(getSaldo('PC-PR'))} color="bg-outline" />
+                                        <Row label="IVA Trasladado" val={Math.abs(getSaldo('PC-IT'))} color="bg-outline" />
+                                        <Row label="IVA por Trasladar" val={Math.abs(getSaldo('PC-IX'))} color="bg-outline" />
+                                        <Row label="Anticipo de Clientes" val={Math.abs(getSaldo('PC-AC'))} color="bg-outline" />
                                     </div>
 
                                     {/* Capital */}
                                     <div>
-                                        <h4 className="text-[10px] font-bold text-slate-500 uppercase mb-2">Capital Contable</h4>
-                                        <Row label="Capital Social" val={Math.abs(getSaldo('C-CS'))} color="bg-slate-400" />
-                                        <Row label="Pérdida/Utilidad Ejercicio" val={getSaldo('C-PE') || getSaldo('C-UN')} color="bg-slate-400" isNegative={(getSaldo('C-PE') || getSaldo('C-UN')) < 0} />
+                                        <h4 className="text-[10px] font-bold text-outline uppercase mb-2">Capital Contable</h4>
+                                        <Row label="Capital Social" val={Math.abs(getSaldo('C-CS'))} color="bg-outline" />
+                                        <Row label="Pérdida/Utilidad Ejercicio" val={getSaldo('C-PE') || getSaldo('C-UN')} color="bg-outline" isNegative={(getSaldo('C-PE') || getSaldo('C-UN')) < 0} />
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="pt-4 border-t-2 border-slate-900 flex justify-between px-2 bg-slate-50 py-2">
-                                <span className="text-sm font-black uppercase text-slate-900">Total Pasivo + Capital</span>
-                                <span className="text-sm font-black text-slate-900 underline decoration-double">{formatCurrency(totalPC)}</span>
+                            <div className="pt-4 border-t-2 border-on-surface flex justify-between px-2 bg-surface-container-low py-2">
+                                <span className="text-sm font-black uppercase text-on-surface">Total Pasivo + Capital</span>
+                                <span className="text-sm font-black text-on-surface underline decoration-double">{formatCurrency(totalPC)}</span>
                             </div>
 
                             <div className={`mt-10 p-4 rounded text-center border-2 ${isBalanced ? 'border-tertiary/20 bg-tertiary/5 text-tertiary' : 'border-error/20 bg-error/5 text-error'}`}>
@@ -189,26 +216,25 @@ const BalanceGeneral = ({ data }) => {
                 <footer className="mt-20">
                     <div className="grid grid-cols-2 gap-24 px-12">
                         <div className="text-center space-y-2">
-                            <div className="border-t border-slate-900 pt-2">
-                                <p className="text-xs font-black text-slate-900 uppercase">{f.elaboro}</p>
-                                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Elaboró</p>
+                            <div className="border-t border-on-surface pt-2">
+                                <p className="text-xs font-black text-on-surface uppercase">{f.elaboro}</p>
+                                <p className="text-[10px] text-outline font-bold uppercase tracking-widest">Elaboró</p>
                             </div>
                         </div>
                         <div className="text-center space-y-2">
-                            <div className="border-t border-slate-900 pt-2">
-                                <p className="text-xs font-black text-slate-900 uppercase">{f.autorizo}</p>
-                                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Autorizó</p>
+                            <div className="border-t border-on-surface pt-2">
+                                <p className="text-xs font-black text-on-surface uppercase">{f.autorizo}</p>
+                                <p className="text-[10px] text-outline font-bold uppercase tracking-widest">Autorizó</p>
                             </div>
                         </div>
                     </div>
-                    <p className="text-[8px] text-slate-400 text-center mt-12 uppercase tracking-widest">
+                    <p className="text-[8px] text-outline text-center mt-12 uppercase tracking-widest">
                         Nexium Accounting Engine v2.0 - Reporte generado de forma automática
                     </p>
                 </footer>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 };
 
 export default BalanceGeneral;
-

@@ -44,16 +44,18 @@ const MainLayout = ({ children, setView, activeView, onResetData }) => {
     { id: 'catalogo', label: 'Catálogo Cuentas', icon: IoListOutline },
     { id: 'registro', label: 'Nuevo Asiento', icon: IoReceiptOutline },
     { id: 'diario', label: 'Libro Diario', icon: IoListOutline },
-    { id: 'balanza', label: 'Balanza Comprobación', icon: IoCalculatorOutline },
+    { id: 'mayor', label: 'Libro Mayor', icon: IoReceiptOutline },
+    { id: 'balanza', label: 'Balanza Ajustada', icon: IoCalculatorOutline },
     { id: 'resultados', label: 'Estado Resultados', icon: IoAnalyticsOutline },
     { id: 'balance', label: 'Balance General', icon: IoStatsChartOutline },
+    { id: 'academica', label: 'Guía Académica', icon: IoAnalyticsOutline },
     { id: 'excel', label: 'Matriz Nexium', icon: IoCloudUploadOutline },
   ];
 
   return (
-    <div className="min-h-screen bg-background dark:bg-slate-950 text-on-background transition-colors duration-500 font-inter flex overflow-hidden">
+    <div className="min-h-screen bg-background text-on-background transition-colors duration-500 font-inter flex overflow-hidden">
       {/* Mobile Header Overlay */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-surface-container-low dark:bg-slate-900 border-b border-surface-container/50 z-[60] flex items-center justify-between px-6 shadow-sm">
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-surface-container-low border-b border-surface-container/50 z-[60] flex items-center justify-between px-6 shadow-sm">
         <h2 className="font-headline font-black text-xl italic text-primary">Nexium</h2>
         <button 
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -72,7 +74,7 @@ const MainLayout = ({ children, setView, activeView, onResetData }) => {
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed left-0 top-0 h-screen w-72 bg-surface-container-low dark:bg-slate-900 border-r border-surface-container transition-transform duration-300 z-[60] lg:translate-x-0 flex flex-col p-6 overflow-y-auto ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <aside className={`fixed left-0 top-0 h-screen w-72 bg-surface-container-low border-r border-surface-container transition-transform duration-300 z-[60] lg:translate-x-0 flex flex-col p-6 overflow-y-auto ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex items-center justify-between mb-10 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/25 transform -rotate-12 group-hover:rotate-0 transition-transform">
@@ -82,7 +84,7 @@ const MainLayout = ({ children, setView, activeView, onResetData }) => {
           </div>
           <button 
             onClick={() => setIsDark(!isDark)}
-            className="w-9 h-9 rounded-full bg-surface-container-high dark:bg-slate-800 flex items-center justify-center text-on-surface hover:scale-110 active:scale-95 transition-all shadow-sm"
+            className="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface hover:scale-110 active:scale-95 transition-all shadow-sm"
           >
             {isDark ? <IoSunny className="text-amber-400" /> : <IoMoon className="text-primary" />}
           </button>
@@ -109,7 +111,7 @@ const MainLayout = ({ children, setView, activeView, onResetData }) => {
              <IoRefreshCircleOutline className="text-xl group-hover:rotate-180 transition-transform duration-500" />
              <span className="text-[11px] font-extrabold tracking-widest uppercase">Restaurar Clase</span>
            </button>
-           <div className="px-5 py-4 rounded-[1.5rem] bg-on-background dark:bg-slate-800 text-white dark:text-slate-100 shadow-xl shadow-black/10">
+           <div className="px-5 py-4 rounded-[1.5rem] bg-on-background bg-opacity-90 dark:bg-surface-container-high text-white dark:text-on-surface shadow-xl shadow-black/10">
              <div className="flex justify-between items-center mb-1">
                <p className="text-[8px] font-bold uppercase opacity-50 tracking-widest">Enterprise V3.0</p>
                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>

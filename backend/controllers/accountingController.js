@@ -8,12 +8,12 @@ export const getBalance = (req, res) => {
         // Ordenar por fecha
         transactions.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-        const history = [...transactions];
-
         // Filtro por fecha si se solicita
         if (targetDate) {
             transactions = transactions.filter(t => new Date(t.date) <= new Date(targetDate));
         }
+
+        const history = [...transactions];
 
         // Lógica para agrupar saldos por cuenta (Balanza de Comprobación)
         const balances = transactions.reduce((acc, t) => {
@@ -39,7 +39,7 @@ export const getBalance = (req, res) => {
                 date: targetDate || new Date().toISOString().split('T')[0]
             },
             body: balances,
-            history: history, // Enviamos el historial completo para el Libro Diario
+            history: history, // Enviamos el historial filtrado
             footer: {
                 elaboro: "Mario Efraín Moguel Hernández - Director",
                 autorizo: "GONZALEZ ZUÑIGA NURIA"
@@ -179,10 +179,16 @@ export const seedData = (req, res) => {
             { id: 19, date: "2026-03-26", description: "Rebaja obtenida sobre Compra (Bonificación)", entries: [
                 { account: 'AC-BA', debe: 1160, haber: 0 }, { account: 'RI-RC', debe: 0, haber: 1000 },
                 { account: 'AC-IV', debe: 0, haber: 160 }
+            ]},
+            { id: 20, date: "2026-03-28", description: "Ajuste por consumo de papelería del mes", entries: [
+                { account: 'RE-GA', debe: 500, haber: 0 }, { account: 'AD-PU', debe: 0, haber: 500 }
+            ]},
+            { id: 21, date: "2026-03-31", description: "Ajuste por devengamiento de 1 mes de renta", entries: [
+                { account: 'RE-GA', debe: 5000, haber: 0 }, { account: 'AD-RA', debe: 0, haber: 5000 }
             ]}
         ];
         transactionModel.write(seed);
-        res.json({ message: "Seeding Nexium completado con 19 asientos de clase.", count: 19 });
+        res.json({ message: "Seeding Nexium completado con 21 asientos (incluye Ajustes).", count: 21 });
     } catch (e) {
         res.status(500).json({ error: e.message });
     }

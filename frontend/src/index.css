@@ -9,12 +9,16 @@
   --background: #f7f9fb;
   --on-background: #2a3439;
   
+  --surface: #f7f9fb;
+  --on-surface: #2a3439;
+  --on-surface-variant: #545f73;
+  
   /* Modern Neutral Palette for Surfaces */
+  --surface-container-lowest: #ffffff;
   --surface-container-low: #f1f3f5;
   --surface-container: #e9ecef;
   --surface-container-high: #dee2e6;
   --surface-container-highest: #ced4da;
-  --surface-bright: #ffffff;
   
   /* Semantic Colors */
   --tertiary: #2e7d32; /* Green para Deudor/Positivo */
@@ -22,14 +26,23 @@
   --outline: #6c757d;
 }
 
-/* Dark mode overrides (optional if using tailwind classes, but good for variables) */
 .dark {
   --background: #020617;
-  --on-background: #f1f5f9;
+  --on-background: #f8fafc;
+  
+  --surface: #0f172a;
+  --on-surface: #f1f5f9;
+  --on-surface-variant: #94a3b8;
+  
+  --surface-container-lowest: #020617; /* The very base background */
   --surface-container-low: #0f172a;
   --surface-container: #1e293b;
-  --surface-bright: #1e293b;
+  --surface-container-high: #334155;
+  --surface-container-highest: #475569;
+  
   --primary: #94a3b8;
+  --on-primary: #020617;
+  
   --tertiary: #4ade80;
   --error: #f87171;
   --outline: #94a3b8;
