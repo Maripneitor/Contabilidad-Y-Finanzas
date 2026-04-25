@@ -11,7 +11,8 @@ export const ACCOUNTS = [
     { code: 'ANC-DAC', name: 'Depre. Acum. Comp.', type: 'Activo No Circulante', nature: 'Acreedora' },
     { code: 'AD-GI', name: 'Gastos de Instalación', type: 'Otros Activos', nature: 'Deudora' },
     { code: 'AD-PU', name: 'Papelería y Útiles', type: 'Otros Activos', nature: 'Deudora' },
-    { code: 'AD-RA', name: 'Rentas Diferidas', type: 'Otros Activos', nature: 'Deudora' },
+    { code: 'AD-RA', name: 'Rentas Pagadas Anticipado', type: 'Otros Activos', nature: 'Deudora' },
+    { code: 'AC-FF', name: 'Fondo Fijo Caja Chica', type: 'Activo Circulante', nature: 'Deudora' },
     { code: 'PC-PR', name: 'Proveedores', type: 'Pasivo Corto Plazo', nature: 'Acreedora' },
     { code: 'PC-IT', name: 'IVA Trasladado', type: 'Pasivo Corto Plazo', nature: 'Acreedora' },
     { code: 'PC-IX', name: 'IVA por Trasladar', type: 'Pasivo Corto Plazo', nature: 'Acreedora' },
@@ -28,4 +29,5 @@ export const ACCOUNTS = [
     { code: 'RE-RV', name: 'Reb sobre Venta', type: 'Resultados (Egresos)', nature: 'Deudora' },
     { code: 'RE-GV', name: 'Gastos de Venta', type: 'Resultados (Egresos)', nature: 'Deudora' },
     { code: 'RE-GA', name: 'Gastos de Administración', type: 'Resultados (Egresos)', nature: 'Deudora' },
+    { code: 'RE-GG', name: 'Gastos Generales', type: 'Resultados (Egresos)', nature: 'Deudora' },
 ];

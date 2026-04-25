@@ -13,11 +13,20 @@ const MetricCard = ({ label, value, icon, color, trend }) => (
             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${color} bg-opacity-10 text-opacity-100`}>
                 <span className="material-symbols-outlined text-2xl">{icon}</span>
             </div>
-            {trend && (
-                <span className="text-[10px] font-bold text-tertiary bg-tertiary/10 px-2 py-1 rounded-full uppercase tracking-tighter">
-                    +12.5% vs Mes Ant.
-                </span>
-            )}
+            <div className="flex items-center gap-2">
+                {trend && (
+                    <span className="text-[10px] font-bold text-tertiary bg-tertiary/10 px-2 py-1 rounded-full uppercase tracking-tighter">
+                        +12.5%
+                    </span>
+                )}
+                <button 
+                    onClick={() => window.dispatchEvent(new CustomEvent('nexium-ask-ai', { detail: `¿Qué significa mi saldo en ${label}?` }))}
+                    className="w-8 h-8 rounded-lg bg-primary/5 text-primary hover:bg-primary hover:text-white transition-all flex items-center justify-center group/ai"
+                    title="Preguntar a IA"
+                >
+                    <span className="material-symbols-outlined text-sm">smart_toy</span>
+                </button>
+            </div>
         </div>
         <div>
             <p className="text-[10px] font-bold text-outline uppercase tracking-[0.2em] mb-1">{label}</p>

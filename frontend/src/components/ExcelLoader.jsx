@@ -57,7 +57,7 @@ const ExcelLoader = ({ onDataLoaded }) => {
             <header>
                 <p className="font-inter text-[10px] uppercase tracking-[0.2em] text-outline mb-1 font-bold italic opacity-60">Suministro de Información</p>
                 <h1 className="text-4xl font-extrabold font-headline tracking-tighter text-on-surface leading-none">
-                    Excel <span className="text-primary italic">Loader</span>
+                    Cargador <span className="text-primary italic">Excel</span>
                 </h1>
             </header>
 

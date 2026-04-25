@@ -3,7 +3,7 @@ import {
   IoGridOutline, IoReceiptOutline, IoAnalyticsOutline, 
   IoStatsChartOutline, IoListOutline, IoCloudUploadOutline,
   IoMoon, IoSunny, IoRefreshCircleOutline, IoCalculatorOutline,
-  IoMenuOutline, IoCloseOutline
+  IoMenuOutline, IoCloseOutline, IoChatbubbleEllipsesOutline
 } from 'react-icons/io5';
 
 const NavItem = ({ id, label, icon: Icon, active, onClick, onClose }) => (
@@ -49,6 +49,8 @@ const MainLayout = ({ children, setView, activeView, onResetData }) => {
     { id: 'resultados', label: 'Estado Resultados', icon: IoAnalyticsOutline },
     { id: 'balance', label: 'Balance General', icon: IoStatsChartOutline },
     { id: 'academica', label: 'Guía Académica', icon: IoAnalyticsOutline },
+    { id: 'asistente', label: 'Asistente IA', icon: IoChatbubbleEllipsesOutline },
+    { id: 'arqueo', label: 'Arqueo de Caja', icon: IoCalculatorOutline },
     { id: 'excel', label: 'Matriz Nexium', icon: IoCloudUploadOutline },
   ];
 
@@ -113,10 +115,10 @@ const MainLayout = ({ children, setView, activeView, onResetData }) => {
            </button>
            <div className="px-5 py-4 rounded-[1.5rem] bg-on-background bg-opacity-90 dark:bg-surface-container-high text-white dark:text-on-surface shadow-xl shadow-black/10">
              <div className="flex justify-between items-center mb-1">
-               <p className="text-[8px] font-bold uppercase opacity-50 tracking-widest">Enterprise V3.0</p>
+               <p className="text-[8px] font-bold uppercase opacity-50 tracking-widest">Versión Empresarial</p>
                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
              </div>
-             <p className="text-[10px] font-extrabold font-headline tracking-tight opacity-90 italic">Nexium Accounting Solutions</p>
+             <p className="text-[10px] font-extrabold font-headline tracking-tight opacity-90 italic">Nexium Soluciones Contables</p>
            </div>
         </div>
       </aside>

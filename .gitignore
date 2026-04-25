@@ -6,3 +6,5 @@ dist-ssr
 .env
 .docker-data
 backend/data/transacciones.json.backup
+KnowledgeBase_Nexium.md
+tareas.md

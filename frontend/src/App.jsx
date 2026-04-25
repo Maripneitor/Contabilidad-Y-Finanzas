@@ -11,6 +11,9 @@ import MainLayout from './layout/MainLayout';
 import CatalogoCuentas from './components/CatalogoCuentas';
 import LibroMayor from './components/LibroMayor';
 import GuiaAcademica from './components/GuiaAcademica';
+import AsistenteIA from './components/AsistenteIA';
+import ArqueoDeCaja from './components/ArqueoDeCaja';
+import FloatingAssistant from './components/FloatingAssistant';
 import { useNotification, Modal } from './components/UI/Notification';
 import { IoWarning } from 'react-icons/io5';
 
@@ -148,6 +151,8 @@ function App() {
                 {view === 'diario' && <LibroDiario history={balanceData?.history} onUpdate={fetchBalance} />}
                 {view === 'mayor' && <LibroMayor history={balanceData?.history} />}
                 {view === 'academica' && <GuiaAcademica />}
+                {view === 'asistente' && <AsistenteIA data={balanceData} />}
+                {view === 'arqueo' && <ArqueoDeCaja />}
                 {view === 'excel' && <ExcelLoader onDataLoaded={handleExcelData} />}
             </div>
 
@@ -174,6 +179,7 @@ function App() {
             </Modal>
 
             <NotificationContainer />
+            <FloatingAssistant data={balanceData} />
         </MainLayout>
     );
 }
